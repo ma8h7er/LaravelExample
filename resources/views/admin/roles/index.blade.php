@@ -6,15 +6,15 @@
 @section('page-header')
     <section class="content-header">
         <h1>
-            Users
-            <a href="{!! route('admin.user.create') !!}" class="btn btn-primary btn-sm">
+            Roles
+            <a href="{!! route('admin.role.create') !!}" class="btn btn-primary btn-sm">
                 <i class="fa fa-plus"></i>
-                Create User
+                Create Role
             </a>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{!! route('admin.dashboard.index') !!}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Users</li>
+            <li class="active">Roles</li>
         </ol>
     </section>
 @endsection
@@ -29,31 +29,29 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-body">
-                        <table id="user-table" class="table table-bordered table-striped">
+                        <table id="role-table" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>id</th>
                                 <th>name</th>
-                                <th>email</th>
                                 <th>created at</th>
                                 <th>updated at</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($roles as $role)
                                 <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{!! $user->name !!}</td>
-                                    <td>{!! $user->email !!}</td>
-                                    <td>{!! $user->created_at !!}</td>
-                                    <td>{!! $user->updated_at !!}</td>
+                                    <td>{{ $role->id }}</td>
+                                    <td>{!! $role->name !!}</td>
+                                    <td>{!! $role->created_at !!}</td>
+                                    <td>{!! $role->updated_at !!}</td>
                                     <td>
-                                        <a href="{!! route('admin.user.edit', [$user->id]) !!}">
+                                        <a href="{!! route('admin.role.edit', [$role->id]) !!}">
                                             <i class="fa fa-edit"></i>
                                             Edit
                                         </a>
-                                        <a href="{!! route('admin.user.delete', [$user->id]) !!}" class="btn btn-sm btn-danger">
+                                        <a href="{!! route('admin.role.delete', [$role->id]) !!}" class="btn btn-sm btn-danger">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
@@ -64,7 +62,6 @@
                             <tr>
                                 <th>id</th>
                                 <th>name</th>
-                                <th>email</th>
                                 <th>created at</th>
                                 <th>updated at</th>
                                 <th>Action</th>
@@ -83,7 +80,7 @@
     <script src="{!! URL::asset('admin/plugins/datatables.net-bs/js/dataTables.bootstrap.min.js') !!}"></script>
     <script>
         $(function () {
-            $('#user-table').DataTable({
+            $('#role-table').DataTable({
                 'paging'      : true,
                 'lengthChange': false,
                 'searching'   : true,

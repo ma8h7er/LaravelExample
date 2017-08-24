@@ -35,6 +35,7 @@
                                 <th>id</th>
                                 <th>name</th>
                                 <th>email</th>
+                                <th>Roles</th>
                                 <th>created at</th>
                                 <th>updated at</th>
                                 <th>Action</th>
@@ -46,6 +47,11 @@
                                     <td>{{ $user->id }}</td>
                                     <td>{!! $user->name !!}</td>
                                     <td>{!! $user->email !!}</td>
+                                    <td>
+                                        @foreach($user->roles as $r)
+                                            {!! $r->name .' - ' !!}
+                                        @endforeach
+                                    </td>
                                     <td>{!! $user->created_at !!}</td>
                                     <td>{!! $user->updated_at !!}</td>
                                     <td>
@@ -65,6 +71,7 @@
                                 <th>id</th>
                                 <th>name</th>
                                 <th>email</th>
+                                <th>Roles</th>
                                 <th>created at</th>
                                 <th>updated at</th>
                                 <th>Action</th>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -18,16 +19,28 @@ class UserController extends Controller
 
     public function create()
     {
-        //roles
-        return view('admin.users.create');
+        $roles = Role::all();
+
+        return view('admin.users.create', compact('roles'));
     }
 
     public function store(Request $request)
     {
-        $request['password'] = bcrypt($request['password']);
-        $user = User::create($request->all());
+        try {
+            $request['password'] = bcrypt($request['password']);
+            $user = User::create($request->all());
 
-        //attach role
+            //attach role
+            $roles = $request['role[]'];
+            foreach ($roles as $role) {
+                $user->roles()->attach($role);
+            }
+        }catch (\Exception $e) {
+            return redirect()->back()->with([
+                'message' => 'Something wnt wrong '. $e->getMessage(),
+                'errors' => true]);
+        }
+
         return redirect()->route('admin.user.index')->with([
             'message' => 'You have successfully created the user account',
             'errors' => false]);

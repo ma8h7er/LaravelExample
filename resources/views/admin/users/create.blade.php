@@ -13,6 +13,16 @@
 @endsection
 @section('content')
     <section class="content">
+        @if(Session::has('message'))
+            @if(Session::has('errors'))
+                <div class="alert alert-danger" role="alert">
+                    {!! Session::get('message') !!}
+                </div>
+                @endif
+            <div class="alert alert-success" role="alert">
+                {!! Session::get('message') !!}
+            </div>
+        @endif
         <div class="row">
             <div class="col-xs-12">
                 <form action="{!! route('admin.user.store') !!}" method="POST">
@@ -27,13 +37,29 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="category">Category</label>
-                                            <select id="role" name="role_id" class="form-control">
-
-                                            </select>
-                                        </div>
+                                        @foreach($roles as $role)
+                                            <div class="form-group has-success">
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" name="role[]" class="custom-control-input" value="{!! $role->id !!}">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">{!! $role->name !!}</span>
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     </div>
+                                   {{-- <div class="col-md-6">
+
+                                            <div class="custom-controls-stacked">
+                                                @foreach($roles as $role)
+                                                <label class="custom-control custom-radio">
+                                                    <input id="role{!! $role->id !!}" name="role_id" type="radio" class="custom-control-input">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">{!! $role->name !!}</span>
+                                                </label>
+                                                @endforeach
+                                            </div>
+
+                                    </div>--}}
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email Address</label>
