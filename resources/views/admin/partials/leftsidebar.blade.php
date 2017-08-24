@@ -58,6 +58,14 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="{!! route('admin.role.index') !!}">
+                    <i class="fa fa-group"></i> <span>Roles</span>
+                    <span class="pull-right-container">
+
+                    </span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

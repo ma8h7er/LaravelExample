@@ -139,4 +139,32 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function ($route){
         'as' => 'admin.user.delete',
         'uses' => 'Admin\UserController@delete'
     ]);
+
+    /**
+     * Roles
+     */
+    Route::get('roles',[
+        'as' => 'admin.role.index',// Route
+        'uses' => 'Admin\RoleController@index'
+    ]);
+    Route::get('roles/create',[
+        'as' => 'admin.role.create',// Route
+        'uses' => 'Admin\RoleController@create'
+    ]);
+    Route::post('roles/store', [
+        'as' => 'admin.role.store',
+        'uses' => 'Admin\RoleController@store'
+    ]);
+    Route::get('roles/{id}/edit', [
+        'as' => 'admin.role.edit',
+        'uses' => 'Admin\RoleController@edit'
+    ]);
+    Route::post('roles/{id}/update', [
+        'as' => 'admin.role.update',
+        'uses' => 'Admin\RoleController@update'
+    ]);
+    Route::get('roles/{id}/delete', [
+        'as' => 'admin.role.delete',
+        'uses' => 'Admin\RoleController@delete'
+    ]);
 });
