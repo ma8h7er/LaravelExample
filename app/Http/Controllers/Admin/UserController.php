@@ -31,7 +31,7 @@ class UserController extends Controller
             $user = User::create($request->all());
 
             //attach role
-            $roles = $request['role[]'];
+            $roles = $request['role'];
             foreach ($roles as $role) {
                 $user->roles()->attach($role);
             }
@@ -49,7 +49,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::all();
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     public function update($id, Request $request)
@@ -63,6 +65,13 @@ class UserController extends Controller
         }
 
         $user->save();
+
+        //attach role
+        $roles = $request['role'];
+        foreach ($roles as $role) {
+            $user->roles()->attach($role);
+        }
+
         return redirect()->route('admin.user.index')->with([
             'message' => 'You have successfully updated the user account',
             'errors' => false]);

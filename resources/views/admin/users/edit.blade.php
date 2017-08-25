@@ -28,12 +28,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="category">Role</label>
-                                            <select id="role" name="role_id" class="form-control">
-
-                                            </select>
-                                        </div>
+                                        @foreach($roles as $role)
+                                            <div class="form-group has-success">
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" name="role[]" class="custom-control-input" value="{!! $role->id !!}">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">{!! $role->name !!}</span>
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -7,6 +7,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -19,8 +20,15 @@ class PostController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        if(Auth::user()->hasAccess('create-post')) {
+            $categories = Category::all();
+            return view('admin.posts.create', compact('categories'));
+        }else{
+            return redirect()->back()->with([
+                'message' => 'You Do NOT have permission to do that!',
+                'errors' => true]);
+        }
+
     }
 
     public function store(Request $request)

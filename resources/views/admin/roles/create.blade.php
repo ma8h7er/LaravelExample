@@ -19,20 +19,45 @@
                     {!! csrf_field() !!}
                     <div class="box box-primary">
                         <div class="box-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="name">Name</label>
-                                            <input id="name" type="text" name="name" class="form-control">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#general" role="tab">General</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#permissions" role="tab">Permissions</a>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="general" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="name">Name</label>
+                                                <input id="name" type="text" name="name" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="description">Description</label>
+                                                <textarea id="description" name="description" class="form-control"> </textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <textarea id="description" name="description" class="form-control"> </textarea>
-                                    </div>
+                                <div class="tab-pane" id="permissions" role="tabpanel">
+                                    @foreach($permissions as $p)
+                                        <div class="form-group">
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="permissions[]"
+                                                       class="custom-control-input" value="{!! $p->id !!}">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description">{!! $p->name !!}</span>
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
 

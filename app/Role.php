@@ -20,4 +20,22 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class, 'role_user');
     }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_permission');
+    }
+
+    public function getPermissionsIds()
+    {
+        $ids = [];
+        foreach ($this->permissions as $p) {
+            $ids[] = $p->id;
+        }
+
+        //Array of permissions ids related to this role
+        return $ids;
+    }
+
+
 }

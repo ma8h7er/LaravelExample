@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Permission;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,9 @@ class RoleController extends Controller
 
     public function create()
     {
-        return view('admin.roles.create');
+        $permissions = Permission::all();
+
+        return view('admin.roles.create', compact('permissions'));
     }
 
     public function store(Request $request)
@@ -31,7 +34,11 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        return view('admin.roles.edit', compact('role'));
+        $permissions = Permission::all();
+
+        $rolePer = $role->getPermissionsIds();
+
+        return view('admin.roles.edit', compact('role', 'permissions', 'rolePer'));
     }
 
     public function update($id, Request $request)
@@ -39,6 +46,10 @@ class RoleController extends Controller
         $role = Role::find($id);
 
         $role->update($request->all());
+        $permissions =  $request['permissions'];
+        foreach ($permissions as $p) {
+            $role->permissions()->attach($p);
+        }
         return redirect()->route('admin.role.index')->with([
             'message' => 'You have successfully updated the role',
             'errors' => false]);
